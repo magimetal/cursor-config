@@ -1,0 +1,70 @@
+---
+description: 
+globs: **/*.ts
+alwaysApply: false
+---
+### Core Rules 🎯
+1. Enable strict mode
+2. Use `unknown` over `any`
+3. Use template literal types
+
+### Type Safety ⚡
+
+```ts
+// Unknown > Any
+function process(input: unknown) {
+  if (typeof input === "string") input.toUpperCase();
+}
+
+// Type Assertions
+const user = { name: "Alice", age: 25 } satisfies Record<string, string | number>;
+```
+
+### Types & Annotations 📝
+```ts
+// Primitives
+type Str = string;    // ✅
+type Obj = String;    // ❌
+
+// Template Literals
+type API = `api/${`users` | `posts`}`;
+
+// Utility Types
+type ReadOnlyUser = Readonly<Partial<User>>;
+```
+
+### Functions 🔧
+```ts
+// Void Callbacks
+function fn(x: () => void) { x(); }
+
+// Non-Optional Params
+interface Fetch {
+  get(cb: (data: unknown, time: number) => void): void;
+}
+
+// Overloads (Specific → General)
+declare function fn(x: HTMLDivElement): string;
+declare function fn(x: HTMLElement): number;
+declare function fn(x: unknown): unknown;
+```
+
+### Best Practices Table 📊
+Practice | Details
+---------|----------
+Strict Mode | Enable in tsconfig
+Template Types | Dynamic string types
+satisfies | Type constraints
+Utility Types | Partial, Pick, Omit
+as const | Exact type matches
+Type Safety | unknown > any
+Validation | zod/io-ts
+Linting | typescript-eslint
+Updates | Regular upgrades
+
+### Tips ⚠️
+- Cache computations
+- Lazy load modules
+- No circular deps
+- Prefer libs over apps
+- Monitor bundle size
