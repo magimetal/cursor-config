@@ -1,6 +1,6 @@
 ---
 description: This rule is helpful for any tasks in TypeScript or HTML files. Angular Apps and Libraries
-globs: **/*.component.ts, **/*.component.html, **/*.service.ts, apps/**/src/app/**/*.ts, libs/ng/**/*.ts
+globs: **/**/*.service.ts,**/**/*.component.html,**/**/*.component.ts,apps/*/src/app/**/*.ts,libs/ng/**/**/*.ts
 alwaysApply: false
 ---
 ## Angular Rules 🅰️
@@ -38,7 +38,16 @@ export class ExampleService {
   - organisms: complex components
   - templates: layouts
   - pages: full pages
-- Use separate components and the @modal.service.ts ModalService for popup modals/dialogs
+- Use separate components and the [modal.service.ts](mdc:libs/ng/modal/src/lib/modal.service.ts) ModalService for popup modals/dialogs
+- Instead of using `afterViewInit`, use:
+
+```typescript
+constructor () {
+  afterNextRender(() => {
+    // logic here
+  });
+}
+```
 
 ### Component Structure
 ```
@@ -132,40 +141,18 @@ component-name/
 - Ensure high test coverage with well-defined unit tests for services, components, and utilities.
 
 ### Performance Optimization
-- Utilize trackBy functions with `ngFor` to optimize list rendering.
-- Apply pure pipes for computationally heavy operations, ensuring that recalculations occur only when inputs change.
+- Apply pure pipes for computationally heavy operations.
 - Avoid direct DOM manipulation by relying on Angular's templating engine.
-- Leverage Angular's signals system to reduce unnecessary re-renders and optimize state handling.
-- Use `NgOptimizedImage` for faster, more efficient image loading.
+- Leverage Angular's signals system to reduce unnecessary re-renders.
+- Use `NgOptimizedImage` for faster, efficient image loading.
 
 ### Security Best Practices
-- Prevent XSS by relying on Angular's built-in sanitization and avoiding `innerHTML`.
-- Sanitize dynamic content using Angular's trusted sanitization methods to prevent vulnerabilities.
+- Prevent XSS by using Angular's built-in sanitization.
+- Sanitize dynamic content properly.
 
 ### Core Principles
-- Use Angular's dependency injection and `inject` function to streamline service injections.
-- Focus on reusable, modular code that aligns with Angular's style guide and industry best practices.
-- Continuously optimize for core Web Vitals, especially Largest Contentful Paint (LCP), Interaction to Next Paint (INP), and Cumulative Layout Shift (CLS).
+- Focus on reusable, modular, and optimized code.
+- Continuously optimize Web Vitals.
 
 ### MetaService Usage
-```typescript
-// Component example with MetaService
-@Component({
-  selector: 'app-example',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './example.component.html',
-})
-export class ExampleComponent implements OnInit {
-  private readonly metaService = inject(MetaService);
-  
-  ngOnInit(): void {
-    this.metaService.updateMetaTags({
-      title: 'Page Title - App Name',
-      description: 'Detailed page description for SEO and social sharing.',
-      keywords: 'relevant, keywords, for, seo',
-      url: '/current-page-path'
-    });
-  }
-}
-```
+Use MetaService for SEO and social sharing metadata management.
