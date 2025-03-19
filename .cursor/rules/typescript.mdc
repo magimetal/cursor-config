@@ -1,8 +1,10 @@
 ---
 description: 
-globs: **/*.ts
+globs: **/**/*.ts,**/**/*.*.ts
 alwaysApply: false
 ---
+## TypeScript Best Practices 2025 🔷
+
 ### Core Rules 🎯
 1. Enable strict mode
 2. Use `unknown` over `any`
